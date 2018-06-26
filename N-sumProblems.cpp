@@ -95,19 +95,16 @@ public:
         set<int> elements;
         vector<int> tmp = nums;
         for(auto it = tmp.begin(); it < tmp.end(); it++){
-            if(elements.count(*it) != 0){
-                // 已经查找过这个元素
-                // cout << "already searched" << *it <<endl;
-                tmp.erase(it);
-                continue;
-            }
             int minsum = 0;
-            int n = tmp.size();
             for(int i = 0; i < n; i++){
                 minsum += tmp[i];
             }
-            if (minsum > sum) break;
-
+            if (minsum > sum) return result;
+            if(elements.count(*it) != 0){
+                // 已经查找过这个元素
+                // cout << "already searched" << *it <<endl;
+                continue;
+            }
             int element = *it;
 
             // cout << "s:" << element << endl;
