@@ -35,6 +35,8 @@ using namespace std;
 
 
 // 通用方法 n-sums
+// 时间效率不是很高
+
 #include <vector>
 #include <algorithm>
 #include <iostream>

@@ -65,9 +65,9 @@ public:
         return root;
     }
     
-    TreeNode* prepostbuild(vector<int>& preorder,int i_pre,int j_pre, vector<int>& inorder,int i_in,int j_in)
+    TreeNode* preinbuild(vector<int>& preorder,int i_pre,int j_pre, vector<int>& inorder,int i_in,int j_in)
     {
-        //由前序遍历和后序遍历构造二叉树
+        //由前序遍历和中序遍历构造二叉树
         if (i_pre >= j_pre || i_in >= j_in)
             return NULL;
         
@@ -79,9 +79,9 @@ public:
 
         TreeNode* root = new TreeNode(sub_root);
         
-        root -> left = prepostbuild(preorder, i_pre + 1 , i_pre + dis + 1, inorder, i_in, i_in + dis);// 左子树的前序遍历、中序遍历。即 R …… XXXXXX | …… XXXXX 的左半部分
+        root -> left = preinbuild(preorder, i_pre + 1 , i_pre + dis + 1, inorder, i_in, i_in + dis);// 左子树的前序遍历、中序遍历。即 R …… XXXXXX | …… XXXXX 的左半部分
         
-        root -> right = prepostbuild(preorder, i_pre + dis + 1, j_pre, inorder, i_in + dis + 1, j_in);
+        root -> right = preinbuild(preorder, i_pre + dis + 1, j_pre, inorder, i_in + dis + 1, j_in);
         
         return root;
     }

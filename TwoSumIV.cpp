@@ -52,7 +52,7 @@ public:
         }
     }
 
-    //solution 2: BFS
+    //solution 2: BFS,O(n)时间复杂度，O(n)空间复杂度
     bool findTarget2(TreeNode* root, int k) {
         set<int> hash;
         queue<TreeNode*> q;
