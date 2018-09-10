@@ -1,3 +1,5 @@
+// connect a tree with right point
+
 /**
  * Definition for a binary tree node.
  * struct TreeNode {

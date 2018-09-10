@@ -11,13 +11,12 @@
 //   [-1, -1, 2]
 // ]
 
-
 // 通用方法 n-sums
-#include <vector>
 #include <algorithm>
 #include <iostream>
 #include <set>
 #include <unordered_set>
+#include <vector>
 
 using namespace std;
 // 三数之和/n数之和
@@ -33,61 +32,73 @@ using namespace std;
 //   [-1, -1, 2]
 // ]
 
-
 // 通用方法 n-sums
 // 时间效率不是很高
 
-#include <vector>
 #include <algorithm>
 #include <iostream>
 #include <set>
 #include <unordered_set>
+#include <vector>
 
 using namespace std;
 class Solution {
 public:
-    vector<vector<int>> threeSum(vector<int>& nums) {
+    vector<vector<int>> fourSum(vector<int> &nums, int &target)
+    {
         sort(nums.begin(), nums.end());
-        vector<vector<int>> result = nsums(nums, 3, 0);
-        // for (auto i : result){
-        //     for (auto val : i){
-        //         cout << val << ",";
-        //     }
-        //     cout << endl;
-        // }
+        vector<vector<int>> result = nsums(nums, 4, target);
 
         set<vector<int>> res_set;
-        for (auto i = result.begin(); i < result.end(); i++){
+        for (auto i = result.begin(); i < result.end(); i++) {
             auto t = *i;
-            sort(t.begin(), t.end());            
-            if(res_set.count(t) != 0){
+            sort(t.begin(), t.end());
+            if (res_set.count(t) != 0) {
                 result.erase(i);
                 i--;
-            }else{
+            } else {
                 res_set.insert(t);
             }
         }
         return result;
-
     }
 
-    vector<vector<int>> nsums(vector<int> nums, int n, int sum){
-        // 备注：在庞大的输入时使用find方式会超时
+    vector<vector<int>> threeSum(vector<int> &nums)
+    {
+        sort(nums.begin(), nums.end());
+        vector<vector<int>> result = nsums(nums, 3, 0);
+
+        set<vector<int>> res_set;
+        for (auto i = result.begin(); i < result.end(); i++) {
+            auto t = *i;
+            sort(t.begin(), t.end());
+            if (res_set.count(t) != 0) {
+                result.erase(i);
+                i--;
+            } else {
+                res_set.insert(t);
+            }
+        }
+        return result;
+    }
+
+    vector<vector<int>> nsums(vector<int> nums, int n, int sum)
+    {
         // 算法的时间复杂度
         vector<vector<int>> result;
-        if(n <= 0 || nums.size() < n){
+        if (n <= 0 || nums.size() < n) {
             return result;
         }
 
-        if(n == 1){
-            if (count(nums.begin(),nums.end(),sum) != 0){
+        if (n == 1) {
+            if (count(nums.begin(), nums.end(), sum) != 0) {
                 //找到元素
                 // cout << "n = 1, find ： " << sum<<endl;
                 vector<int> tmp;
                 tmp.push_back(sum);
                 result.push_back(tmp);
                 return result;
-            }else{
+            } else {
                 //找不到元素
                 // cout << "n = 1, find nothing"<<endl;
                 return result;
@@ -96,13 +107,14 @@ public:
 
         set<int> elements;
         vector<int> tmp = nums;
-        for(auto it = tmp.begin(); it < tmp.end(); it++){
+        for (auto it = tmp.begin(); it < tmp.end(); it++) {
             int minsum = 0;
-            for(int i = 0; i < n; i++){
+            for (int i = 0; i < n; i++) {
                 minsum += tmp[i];
             }
-            if (minsum > sum) return result;
-            if(elements.count(*it) != 0){
+            if (minsum > sum)
+                return result;
+            if (elements.count(*it) != 0) {
                 // 已经查找过这个元素
                 // cout << "already searched" << *it <<endl;
                 continue;
@@ -118,13 +130,14 @@ public:
             //      cout << i << ",";
             // }
             // cout << endl;
-            vector<vector<int>> sub = nsums(tmp, n-1, sum - element);
-            if (sub.empty()){
+            vector<vector<int>> sub = nsums(tmp, n - 1, sum - element);
+            if (sub.empty()) {
                 continue;
-            }else{
-                for(auto i : sub){
+            } else {
+                for (auto i : sub) {
                     // 在所得解中加入当前元素
-                    if (i.empty()) continue;
+                    if (i.empty())
+                        continue;
                     i.push_back(element);
                     // for(auto t : i){
                     //     cout << t << ",";
@@ -133,20 +146,22 @@ public:
                     // 将解存入result
                     result.push_back(i);
                 }
-            }            
+            }
         }
         return result;
     }
 };
 
-int main(){
+int main()
+{
     vector<int> v;
-    for (int d; std::cin >> d; v.push_back(d)) {}
+    for (int d; std::cin >> d; v.push_back(d)) {
+    }
     Solution s;
     vector<vector<int>> res = s.threeSum(v);
     cout << "=========result=======" << endl;
-    for (auto i : res){
-        for (auto val : i){
+    for (auto i : res) {
+        for (auto val : i) {
             cout << val << ",";
         }
         cout << endl;
